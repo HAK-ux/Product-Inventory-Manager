@@ -4,8 +4,6 @@ import exceptions.*;
 import model.Inventory;
 import model.Product;
 
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.Scanner;
 
 // Inventory manager application
