@@ -42,4 +42,19 @@ public class Inventory {
         return totVal;
     }
 
+    // EFFECTS: Returns the product given its unique ID number.
+    public Product getProductGivenId(int id) throws InvalidProductException {
+        for (Product product : inventory) {
+            if (id == product.getId()) {
+                return product;
+            }
+        }
+        throw new InvalidProductException();
+    }
+
+    // EFFECTS: Returns the inventory as an array list of Products.
+    public ArrayList<Product> getInventory() {
+        return inventory;
+    }
+
 }
