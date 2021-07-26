@@ -1,12 +1,10 @@
 package model;
 
+import exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-
 
 public class InventoryTest {
     Inventory emptyInventory;
@@ -17,7 +15,7 @@ public class InventoryTest {
 
 
     @BeforeEach
-    void setup() {
+    void setup() throws InvalidPriceException, ZeroNameLengthException, InvalidQtyException {
         emptyInventory = new Inventory();
         product1 = new Product("Test", 1, "Testing", 20, 2);
         product2 = new Product("Test", 2, "Testing", 30, 3);
@@ -26,7 +24,7 @@ public class InventoryTest {
     }
 
     @Test
-    void addProductTest() {
+    void addProductTest() throws InvalidIdException {
         emptyInventory.addProduct(product1);
         emptyInventory.addProduct(product2);
         emptyInventory.addProduct(product3);
@@ -41,7 +39,7 @@ public class InventoryTest {
 
 
     @Test
-    void removeProductTest() {
+    void removeProductTest() throws InvalidIdException, InvalidProductException {
         emptyInventory.addProduct(product3);
         emptyInventory.addProduct(product1);
         emptyInventory.addProduct(product4);
@@ -55,7 +53,7 @@ public class InventoryTest {
     }
 
     @Test
-    void getValueTest() {
+    void getValueTest() throws InvalidIdException {
         assertEquals(0, emptyInventory.getValue());
 
         emptyInventory.addProduct(product1);

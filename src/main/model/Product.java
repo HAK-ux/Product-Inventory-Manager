@@ -1,6 +1,7 @@
 package model;
 
-import exceptions.NegativeNumberException;
+import exceptions.InvalidPriceException;
+import exceptions.InvalidQtyException;
 import exceptions.ZeroNameLengthException;
 
 // Represents a product which has a name, id, category, price, and quantity.
@@ -13,19 +14,19 @@ public class Product {
 
     // EFFECTS: Constructs a product with a name, ID number, category, price, and initial quantity.
     public Product(String name, int id, String ctg, double price, int qty) throws ZeroNameLengthException,
-            NegativeNumberException {
+            InvalidQtyException, InvalidPriceException {
 
         // Exceptions
         if (name.equals("")) {
             throw new ZeroNameLengthException();
         }
 
-        if (price < 0) {
-            throw new NegativeNumberException();
+        if (price <= 0) {
+            throw new InvalidPriceException();
         }
 
         if (qty < 0) {
-            throw new NegativeNumberException();
+            throw new InvalidQtyException();
         }
 
         // Attributes

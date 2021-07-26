@@ -22,24 +22,15 @@ public class Inventory {
         for (Product item : inventory) {
             if (item.getId() == product.getId()) {
                 throw new InvalidIdException();
-            } else {
-                inventory.add(product);
             }
         }
+        inventory.add(product);
     }
 
     // MODIFIES: this
-    // EFFECTS: If the given product is in the inventory list, removes it. Otherwise throws an InvalidProductException
-    // and does not do anything to the inventory.
-    public void removeProduct(Product product) throws InvalidProductException {
-        for (Product item : inventory) {
-            if (item.getId() == product.getId()) {
-                inventory.remove(product);
-
-            } else {
-                throw new InvalidProductException();
-            }
-        }
+    // EFFECTS: Removes the given product from the list.
+    public void removeProduct(Product product) {
+        inventory.remove(product);
     }
 
     // EFFECTS: Gets the value of all products in the inventory.
@@ -48,7 +39,6 @@ public class Inventory {
         for (Product product : inventory) {
             totVal += product.getPrice() * product.getQty();
         }
-
         return totVal;
     }
 

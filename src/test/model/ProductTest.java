@@ -1,5 +1,8 @@
 package model;
 
+import exceptions.InvalidPriceException;
+import exceptions.InvalidQtyException;
+import exceptions.ZeroNameLengthException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +12,7 @@ class ProductTest {
     Product product;
 
     @BeforeEach
-    void setup() {
+    void setup() throws InvalidPriceException, ZeroNameLengthException, InvalidQtyException {
         product = new Product("Test", 1234, "Testing", 20, 2);
     }
 
