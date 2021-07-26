@@ -47,6 +47,7 @@ public class InventoryManager {
         System.out.println("\tq -> quit");
     }
 
+    // EFFECTS: Displays menu of options to edit a product for the user.
     private void editMenu() {
         System.out.println("\nChoose one of the following:");
         System.out.println("\ti -> Increase price");
