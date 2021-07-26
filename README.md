@@ -5,8 +5,9 @@
 
 ### User Stories
 - As a user, I want to be able to add a product to my product inventory.
+- As a user, I want to be able to remove a product from my inventory.
 - As a user, I want to be able to view my whole inventory.
-- As a user, I want to be able to view the value and quantity of a certain product in my inventory.
+- As a user, I want to be able to view a certain product in my inventory.
 - As a user, I want to be able to view the total value of my inventory.
 - As a user, I want to be able to edit a product and its attributes e.g ID, value, quantity.
 
