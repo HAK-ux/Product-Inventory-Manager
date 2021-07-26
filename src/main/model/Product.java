@@ -63,6 +63,7 @@ public class Product {
         return price += amount;
     }
 
+    // REQUIRES: amount < price
     // MODIFIES: this
     // EFFECTS: Reduces the price of the product by the amount given.
     public double reducePrice(double amount) {
@@ -75,6 +76,7 @@ public class Product {
         return qty += num;
     }
 
+    // REQUIRES: num <= qty
     // MODIFIES: this
     // EFFECTS: Decreases the product quantity by the number given.
     public int reduceQty(int num) {

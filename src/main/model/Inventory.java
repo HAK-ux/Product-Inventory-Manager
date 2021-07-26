@@ -33,7 +33,7 @@ public class Inventory {
         inventory.remove(product);
     }
 
-    // EFFECTS: Gets the value of all products in the inventory.
+    // EFFECTS: Gets the total price value of all products in the inventory.
     public int getValue() {
         int totVal = 0;
         for (Product product : inventory) {
