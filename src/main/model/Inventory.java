@@ -22,6 +22,8 @@ public class Inventory {
         for (Product item : inventory) {
             if (item.getId() == product.getId()) {
                 throw new InvalidIdException();
+            } else {
+                continue;
             }
         }
         inventory.add(product);
@@ -47,6 +49,8 @@ public class Inventory {
         for (Product product : inventory) {
             if (id == product.getId()) {
                 return product;
+            } else {
+                continue;
             }
         }
         throw new InvalidProductException();

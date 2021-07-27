@@ -16,7 +16,6 @@ public class Product {
     public Product(String name, int id, String ctg, double price, int qty) throws ZeroNameLengthException,
             InvalidQtyException, InvalidPriceException {
 
-        // Exceptions
         if (name.equals("")) {
             throw new ZeroNameLengthException();
         }
@@ -29,12 +28,12 @@ public class Product {
             throw new InvalidQtyException();
         }
 
-        // Attributes
         this.name = name;
         this.id = id;
         this.ctg = ctg;
         this.price = price;
         this.qty = qty;
+
     }
 
     public String getName() {

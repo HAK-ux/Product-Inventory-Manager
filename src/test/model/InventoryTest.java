@@ -39,7 +39,7 @@ public class InventoryTest {
 
 
     @Test
-    void removeProductTest() throws InvalidIdException, InvalidProductException {
+    void removeProductTest() throws InvalidIdException {
         emptyInventory.addProduct(product3);
         emptyInventory.addProduct(product1);
         emptyInventory.addProduct(product4);
@@ -71,5 +71,6 @@ public class InventoryTest {
         emptyInventory.addProduct(product4);
 
         assertEquals(product4, emptyInventory.getProductGivenId(4));
+        assertEquals(product3, emptyInventory.getProductGivenId(3));
     }
 }
