@@ -18,25 +18,21 @@ public class Product {
 
         if (name.equals("")) {
             throw new ZeroNameLengthException();
-        } else {
-            this.name = name;
         }
 
         if (price <= 0) {
             throw new InvalidPriceException();
-        } else {
-            this.price = price;
         }
+
         if (qty < 0) {
             throw new InvalidQtyException();
-        } else {
-            this.qty = qty;
         }
 
         this.name = name;
-
         this.id = id;
         this.ctg = ctg;
+        this.price = price;
+        this.qty = qty;
 
 
     }

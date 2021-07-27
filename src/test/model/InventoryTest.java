@@ -73,4 +73,29 @@ public class InventoryTest {
         assertEquals(product4, emptyInventory.getProductGivenId(4));
         assertEquals(product3, emptyInventory.getProductGivenId(3));
     }
+
+    @Test
+    void invalidIdExceptionTest() {
+        try {
+            emptyInventory.addProduct(product1);
+            emptyInventory.addProduct(product1);
+            fail();
+        } catch (InvalidIdException e) {
+            // Good!
+        }
+    }
+
+    @Test
+    void invalidProductExceptionTest() throws InvalidIdException {
+        emptyInventory.addProduct(product2);
+        emptyInventory.addProduct(product4);
+
+        try {
+            emptyInventory.getProductGivenId(1);
+            fail();
+        } catch (InvalidProductException e) {
+            // Good!
+        }
+
+    }
 }

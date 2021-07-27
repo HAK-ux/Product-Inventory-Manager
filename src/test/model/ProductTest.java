@@ -48,4 +48,48 @@ class ProductTest {
         assertEquals ("Changed", product.getName());
 
     }
+
+    @Test
+    void validProductExceptionTest() {
+        try {
+            Product product = new Product("Valid", 1234, "Testing", 20, 2);
+        } catch (ZeroNameLengthException | InvalidQtyException | InvalidPriceException e) {
+            fail();
+        }
+
+    }
+    @Test
+    void zeroLengthNameExceptionTest() {
+        try {
+            Product product = new Product("", 1234, "Testing", 20, 2);
+            fail();
+        } catch (ZeroNameLengthException e) {
+            // Good!
+        } catch (InvalidQtyException | InvalidPriceException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void invalidQtyExceptionTest() {
+        try {
+            Product product = new Product("Test",1234, "Testing", 20, -2);
+            fail();
+        } catch (ZeroNameLengthException | InvalidPriceException e) {
+            fail();
+        } catch (InvalidQtyException e) {
+            // Good!
+        }
+    }
+
+    @Test
+    void invalidPriceExceptionTest() {
+        try {
+            Product product = new Product("Test",1234, "Testing", -2, 2);
+        } catch (ZeroNameLengthException | InvalidQtyException e) {
+            fail();
+        } catch (InvalidPriceException e) {
+            // Good!
+        }
+    }
 }
