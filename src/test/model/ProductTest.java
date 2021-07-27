@@ -35,4 +35,17 @@ class ProductTest {
     void reduceQtyTest() {
         assertEquals(1, product.reduceQty(1));
     }
+
+    @Test
+    void setCtgTest() {
+        product.setCtg("Changed");
+        assertEquals ("Changed", product.getCtg());
+    }
+
+    @Test
+    void setNameTest() {
+        product.setName("Changed");
+        assertEquals ("Changed", product.getName());
+
+    }
 }

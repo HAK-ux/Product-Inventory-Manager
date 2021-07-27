@@ -18,21 +18,26 @@ public class Product {
 
         if (name.equals("")) {
             throw new ZeroNameLengthException();
+        } else {
+            this.name = name;
         }
 
         if (price <= 0) {
             throw new InvalidPriceException();
+        } else {
+            this.price = price;
         }
-
         if (qty < 0) {
             throw new InvalidQtyException();
+        } else {
+            this.qty = qty;
         }
 
         this.name = name;
+
         this.id = id;
         this.ctg = ctg;
-        this.price = price;
-        this.qty = qty;
+
 
     }
 
@@ -80,6 +85,18 @@ public class Product {
     // EFFECTS: Decreases the product quantity by the number given.
     public int reduceQty(int num) {
         return qty -= num;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Changes the category name to the given name.
+    public String setCtg(String ctg) {
+        return this.ctg = ctg;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Changes the product name to the given name.
+    public String setName(String name) {
+        return this.name = name;
     }
 
 
