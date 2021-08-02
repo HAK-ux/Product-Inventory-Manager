@@ -1,1 +1,7 @@
-{"products": []}
+{"products": [{
+    "quantity": 5,
+    "price": 4,
+    "name": "haide",
+    "id": 2,
+    "category": "3"
+}]}
