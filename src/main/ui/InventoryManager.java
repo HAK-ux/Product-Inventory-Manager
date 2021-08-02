@@ -3,22 +3,34 @@ package ui;
 import exceptions.*;
 import model.Inventory;
 import model.Product;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 // Inventory manager application
 public class InventoryManager {
+    private static final String JSON_STORE = "./data/inventory.json";
     private Scanner input;
     private Inventory inventory;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: Runs the inventory manager application.
-    public InventoryManager() {
+    public InventoryManager() throws InvalidPriceException, ZeroNameLengthException, InvalidQtyException,
+                                     InvalidIdException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runInventoryManager();
     }
 
     // MODIFIES: this
     // EFFECTS: Processes user input.
-    private void runInventoryManager() {
+    private void runInventoryManager() throws InvalidPriceException, ZeroNameLengthException, InvalidQtyException,
+                                              InvalidIdException {
         boolean running = true;
         input = new Scanner(System.in);
         inventory = new Inventory();
@@ -40,6 +52,8 @@ public class InventoryManager {
     private void displayMenu() {
         System.out.println("\nChoose one of the following:");
         System.out.println("\ti -> View your inventory.");
+        System.out.println("\ts -> Save your inventory.");
+        System.out.println("\tl -> Load your inventory.");
         System.out.println("\ta -> Add product to inventory.");
         System.out.println("\tr -> Remove product from inventory.");
         System.out.println("\te -> Edit a product in your inventory.");
@@ -60,29 +74,28 @@ public class InventoryManager {
 
     // MODIFIES: this
     // EFFECTS: Processes user command in displayMenu.
-    private void processCommand(String command) {
+    private void processCommand(String command) throws InvalidPriceException, ZeroNameLengthException,
+                                                       InvalidQtyException, InvalidIdException {
         if (command.equals("i")) {
             processViewInventory();
-
+        } else if (command.equals("s")) {
+            saveInventory();
+        } else if (command.equals("l")) {
+            loadInventory();
         } else if (command.equals("a")) {
             processAddProduct(inventory);
-
         } else if (command.equals("r")) {
             processRemoveProduct(inventory);
-
         } else if (command.equals("e")) {
             editMenu();
-            String editCommand = input.next();
-            editCommand = editCommand.toLowerCase();
+            String editCommand = input.next().toLowerCase();
             if (editCommand.equals("q")) {
                 displayMenu();
             } else {
                 processEditCommand(editCommand);
             }
-
         } else if (command.equals("v")) {
             processViewValue();
-
         } else {
             System.out.println("Selection not valid...");
         }
@@ -144,6 +157,7 @@ public class InventoryManager {
         } catch (InvalidPriceException e) {
             System.err.println("Please enter a valid price.");
         }
+
         return null;
     }
 
@@ -251,4 +265,27 @@ public class InventoryManager {
         }
     }
 
+    // EFFECTS: saves the workroom to file
+    private void saveInventory() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(inventory);
+            jsonWriter.close();
+            System.out.println("Saved inventory to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadInventory() throws InvalidPriceException, ZeroNameLengthException, InvalidQtyException,
+                                        InvalidIdException {
+        try {
+            inventory = jsonReader.read();
+            System.out.println("Loaded inventory from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
 }

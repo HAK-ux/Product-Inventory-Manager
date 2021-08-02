@@ -2,11 +2,14 @@ package model;
 
 import exceptions.InvalidIdException;
 import exceptions.InvalidProductException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
 // Represents a list of products
-public class Inventory {
+public class Inventory implements Writable {
     ArrayList<Product> inventory;
 
 
@@ -22,8 +25,6 @@ public class Inventory {
         for (Product item : inventory) {
             if (item.getId() == product.getId()) {
                 throw new InvalidIdException();
-            } else {
-                continue;
             }
         }
         inventory.add(product);
@@ -49,16 +50,37 @@ public class Inventory {
         for (Product product : inventory) {
             if (id == product.getId()) {
                 return product;
-            } else {
-                continue;
             }
         }
         throw new InvalidProductException();
     }
 
+    // EFFECTS: returns number of products in this inventory
+    public int numProducts() {
+        return inventory.size();
+    }
+
     // EFFECTS: Returns the inventory as an array list of Products.
     public ArrayList<Product> getInventory() {
         return inventory;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("products", productsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns products in this inventory as a JSON array
+    private JSONArray productsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Product p : inventory) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

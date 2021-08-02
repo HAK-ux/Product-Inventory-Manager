@@ -1,0 +1,16 @@
+{"products": [
+    {
+        "quantity": 1,
+        "price": 2,
+        "name": "TestWrite",
+        "id": 1,
+        "category": "TestCtg"
+    },
+    {
+        "quantity": 2,
+        "price": 3,
+        "name": "TestWrite2",
+        "id": 2,
+        "category": "TestCtg2"
+    }
+]}

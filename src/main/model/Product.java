@@ -3,9 +3,11 @@ package model;
 import exceptions.InvalidPriceException;
 import exceptions.InvalidQtyException;
 import exceptions.ZeroNameLengthException;
+import org.json.JSONObject;
+import persistence.Writable;
 
 // Represents a product which has a name, id, category, price, and quantity.
-public class Product {
+public class Product implements Writable {
     private String name;  // product name
     private int id;       // unique product ID number
     private String ctg;   // product category
@@ -85,15 +87,26 @@ public class Product {
 
     // MODIFIES: this
     // EFFECTS: Changes the category name to the given name.
-    public String setCtg(String ctg) {
-        return this.ctg = ctg;
+    public void setCtg(String ctg) {
+        this.ctg = ctg;
     }
 
     // MODIFIES: this
     // EFFECTS: Changes the product name to the given name.
-    public String setName(String name) {
-        return this.name = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("id", id);
+        json.put("category", ctg);
+        json.put("price", price);
+        json.put("quantity", qty);
+
+        return json;
+    }
 
 }
