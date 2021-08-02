@@ -136,7 +136,6 @@ public class InventoryManager {
     // EFFECTS: Gets the product from the user.
     private Product getProduct() {
         input = new Scanner(System.in);
-
         System.out.println("Product Name: ");
         String name = input.next();
         System.out.println("Unique ID Number: ");
@@ -151,19 +150,20 @@ public class InventoryManager {
         try {
             return new Product(name, id, ctg, price, qty);
         } catch (ZeroNameLengthException e) {
-            System.err.println("Please enter a valid name.");
+            System.err.println("Please enter a valid name. \n");
+            return getProduct();
         } catch (InvalidQtyException e) {
-            System.err.println("Please enter a valid quantity.");
+            System.err.println("Please enter a valid quantity. \n");
+            return getProduct();
         } catch (InvalidPriceException e) {
-            System.err.println("Please enter a valid price.");
+            System.err.println("Please enter a valid price. \n");
+            return getProduct();
         }
-
-        return null;
     }
 
     // MODIFIES: this
     // EFFECTS: Processes the adding of a product to the inventory.
-    private void processAddProduct(Inventory inventory)  {
+    private void processAddProduct(Inventory inventory) {
         Product product = getProduct();
         try {
             inventory.addProduct(product);

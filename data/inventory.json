@@ -1,7 +1,16 @@
-{"products": [{
-    "quantity": 5,
-    "price": 4,
-    "name": "haide",
-    "id": 2,
-    "category": "3"
-}]}
+{"products": [
+    {
+        "quantity": 1,
+        "price": 1,
+        "name": "h",
+        "id": 1,
+        "category": "1"
+    },
+    {
+        "quantity": 2,
+        "price": 2,
+        "name": "2",
+        "id": 2,
+        "category": "2"
+    }
+]}
