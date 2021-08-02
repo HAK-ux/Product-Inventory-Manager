@@ -9,5 +9,7 @@
 - As a user, I want to be able to view my whole inventory.
 - As a user, I want to be able to view the total value of my inventory.
 - As a user, I want to be able to edit the price and quantity of any product in the inventory.
+- As a user, I want to be able to save my product inventory to file.
+- As a user, I want to be able to load my product inventory from file.
 
 
