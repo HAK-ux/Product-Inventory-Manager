@@ -1,16 +1,16 @@
 {"products": [
     {
-        "quantity": 1,
-        "price": 1,
-        "name": "h",
+        "quantity": 2,
+        "price": 4,
+        "name": "Milk",
         "id": 1,
-        "category": "1"
+        "category": "Dairy"
     },
     {
-        "quantity": 2,
-        "price": 2,
-        "name": "2",
-        "id": 2,
-        "category": "2"
+        "quantity": 3,
+        "price": 4,
+        "name": "ggs",
+        "id": 23,
+        "category": "Dary"
     }
 ]}

@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class InventoryManager {
     private static final String JSON_STORE = "./data/inventory.json";
     private Scanner input;
-    private Inventory inventory;
+    private static Inventory inventory;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -265,7 +265,7 @@ public class InventoryManager {
         }
     }
 
-    // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the inventory to file
     private void saveInventory() {
         try {
             jsonWriter.open();
@@ -278,7 +278,7 @@ public class InventoryManager {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
+    // EFFECTS: loads inventory from file
     private void loadInventory() throws InvalidPriceException, ZeroNameLengthException, InvalidQtyException,
                                         InvalidIdException {
         try {
