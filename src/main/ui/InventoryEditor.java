@@ -51,25 +51,15 @@ public class InventoryEditor extends JPanel {
     private JsonReader jsonReader;
 
 
-
+    // EFFECTS: Constructs an Inventory Editor gui.
     public InventoryEditor() {
         inventory = new Inventory();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
-        addButton = new JButton(addString);
-        addButton.addActionListener(addListener);
-        removeButton = new JButton(removeString);
-        removeButton.addActionListener(removeListener);
-        saveButton = new JButton(saveString);
-        saveButton.addActionListener(saveListener);
-        loadButton = new JButton(loadString);
-        loadButton.addActionListener(loadListener);
-
         initJTable();
         // Adding table to JScrollPane
         JScrollPane sp = new JScrollPane(table);
-
         initFrame(sp);
         initButtons();
         frame.pack();
@@ -106,6 +96,15 @@ public class InventoryEditor extends JPanel {
     public void initButtons() {
         JPanel buttonPnl = new JPanel(new BorderLayout());
         JPanel bottomButtonPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        addButton = new JButton(addString);
+        addButton.addActionListener(addListener);
+        removeButton = new JButton(removeString);
+        removeButton.addActionListener(removeListener);
+        saveButton = new JButton(saveString);
+        saveButton.addActionListener(saveListener);
+        loadButton = new JButton(loadString);
+        loadButton.addActionListener(loadListener);
 
         bottomButtonPnl.add(addButton);
         bottomButtonPnl.add(removeButton);
@@ -237,12 +236,13 @@ public class InventoryEditor extends JPanel {
     };
 
 
-
+    // EFFECTS: Assigns user input to name. Resets text field.
     public void submitName(ActionEvent e) {
         name = inputField.getText();
         inputField.setText(null);
     }
 
+    // EFFECTS: Assigns user input to id. Resets text field.
     public void submitID(ActionEvent e) {
         if (e.getSource() == inputButton) {
             id = Integer.parseInt(inputField.getText());
@@ -250,6 +250,7 @@ public class InventoryEditor extends JPanel {
         }
     }
 
+    // EFFECTS: Assigns user input to ctg. Resets text field.
     public void submitCtg(ActionEvent e) {
         if (e.getSource() == inputButton) {
             ctg = inputField.getText();
@@ -257,6 +258,7 @@ public class InventoryEditor extends JPanel {
         }
     }
 
+    // EFFECTS: Assigns user input to price. Resets text field.
     public void submitPrice(ActionEvent e) {
         if (e.getSource() == inputButton) {
             price = Double.parseDouble(inputField.getText());
@@ -264,12 +266,14 @@ public class InventoryEditor extends JPanel {
         }
     }
 
+    // EFFECTS: Assigns user input to qty. Resets text field.
     public void submitQty(ActionEvent e) {
         if (e.getSource() == inputButton) {
             qty = Integer.parseInt(inputField.getText());
         }
     }
 
+    // EFFECTS: Collects all the user inputs needed for a product to be added.
     public boolean collectAddInputs(ActionEvent e) {
         boolean collected = false;
 
@@ -306,12 +310,16 @@ public class InventoryEditor extends JPanel {
             inventory.addProduct(new Product(name, id, ctg, price, qty));
             addRow();
         } catch (InvalidIdException ex) {
+            Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(frame, "Please enter a valid ID.");
         } catch (ZeroNameLengthException ex) {
+            Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(frame, "Please enter a valid name.");
         } catch (InvalidQtyException ex) {
+            Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(frame, "Please enter a valid quantity.");
         } catch (InvalidPriceException ex) {
+            Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(frame, "Please enter a valid price.");
         }
     }
@@ -385,9 +393,3 @@ public class InventoryEditor extends JPanel {
         loadButton.setEnabled(true);
     }
 }
-
-
-
-
-
-
