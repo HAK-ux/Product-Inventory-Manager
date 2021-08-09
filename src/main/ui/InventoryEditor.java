@@ -331,6 +331,7 @@ public class InventoryEditor extends JPanel {
             removeRow();
             inventory.removeProduct(inventory.getProductGivenId(removeId));
         } catch (InvalidProductException e) {
+            Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(frame, "This product does not exist.");
         }
     }
