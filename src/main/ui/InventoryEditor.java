@@ -11,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -52,6 +54,8 @@ public class InventoryEditor extends JPanel {
 
     public InventoryEditor() {
         inventory = new Inventory();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
 
         addButton = new JButton(addString);
         addButton.addActionListener(addListener);
@@ -94,6 +98,7 @@ public class InventoryEditor extends JPanel {
         frame.add(sp);
         frame.setSize(WIDTH, HEIGHT);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     // MODIFIES: this
@@ -152,14 +157,12 @@ public class InventoryEditor extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == addButton) {
-                addButton.setEnabled(false);
-                removeButton.setEnabled(false);
+                disableButtons();
                 initTextFieldAdd();
             }
-            if (collectInputs(e)) {
+            if (collectAddInputs(e)) {
                 addProduct();
-                addButton.setEnabled(true);
-                removeButton.setEnabled(true);
+                enableButtons();
                 frame.remove(topTextPnl);
                 frame.pack();
             }
@@ -170,8 +173,7 @@ public class InventoryEditor extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == removeButton) {
-                addButton.setEnabled(false);
-                removeButton.setEnabled(false);
+                disableButtons();
                 initTextFieldRemove();
             }
 
@@ -183,8 +185,7 @@ public class InventoryEditor extends JPanel {
 
             if (collected) {
                 removeProduct();
-                addButton.setEnabled(true);
-                removeButton.setEnabled(true);
+                enableButtons();
                 frame.remove(topTextPnl);
                 frame.pack();
             }
@@ -195,9 +196,15 @@ public class InventoryEditor extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == saveButton) {
-                inventory.toJson();
+                try {
+                    jsonWriter.open();
+                    jsonWriter.write(inventory);
+                    jsonWriter.close();
+                    System.out.println("Saved inventory to " + JSON_STORE);
 
-
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Unable to write to file: " + JSON_STORE);
+                }
             }
 
         }
@@ -207,13 +214,27 @@ public class InventoryEditor extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == loadButton) {
-                System.out.println("shit");
-
+                try {
+                    inventory.getInventory().clear();
+                    model.getDataVector().removeAllElements();
+                    inventory = jsonReader.read();
+                    System.out.println("Loaded inventory from " + JSON_STORE);
+                    for (Product product : inventory.getInventory()) {
+                        name = product.getName();
+                        id = product.getId();
+                        ctg = product.getCtg();
+                        price = product.getPrice();
+                        qty = product.getQty();
+                    }
+                    addLoadedRows();
+                    loadButton.setEnabled(false);
+                } catch (IOException | InvalidPriceException | ZeroNameLengthException | InvalidQtyException
+                         | InvalidIdException ex) {
+                    System.out.println("Unable to read from file: " + JSON_STORE);
+                }
             }
-
         }
     };
-
 
 
 
@@ -249,7 +270,7 @@ public class InventoryEditor extends JPanel {
         }
     }
 
-    public boolean collectInputs(ActionEvent e) {
+    public boolean collectAddInputs(ActionEvent e) {
         boolean collected = false;
 
         if (inputButton.getText().equals("Submit Name")) {
@@ -281,7 +302,6 @@ public class InventoryEditor extends JPanel {
     // MODIFIES: inventory, table
     // EFFECTS: Adds product to inventory and adds a corresponding row in the TableModel.
     public void addProduct() {
-
         try {
             inventory.addProduct(new Product(name, id, ctg, price, qty));
             addRow();
@@ -302,7 +322,6 @@ public class InventoryEditor extends JPanel {
         try {
             removeRow();
             inventory.removeProduct(inventory.getProductGivenId(removeId));
-
         } catch (InvalidProductException e) {
             JOptionPane.showMessageDialog(frame, "This product does not exist.");
         }
@@ -332,6 +351,38 @@ public class InventoryEditor extends JPanel {
                 model.removeRow(i);
             }
         }
+    }
+
+    // MODIFIES: table
+    // EFFECTS: Adds the rows in the inventory loaded from the Json file.
+    public void addLoadedRows() {
+        for (int i = 0; i < inventory.numProducts(); i++) {
+            ArrayList<Product> products = inventory.getInventory();
+            String name = (products.get(i)).getName();
+            int id = (products.get(i)).getId();
+            String ctg = (products.get(i)).getCtg();
+            double price = (products.get(i)).getPrice();
+            int qty = (products.get(i)).getQty();
+            model.addRow(new Object[]{name, id, ctg, price, qty});
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Disables all the buttons in the gui.
+    public void disableButtons() {
+        addButton.setEnabled(false);
+        removeButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        loadButton.setEnabled(false);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Enables all the buttons in the gui.
+    public void enableButtons() {
+        addButton.setEnabled(true);
+        removeButton.setEnabled(true);
+        saveButton.setEnabled(true);
+        loadButton.setEnabled(true);
     }
 }
 
