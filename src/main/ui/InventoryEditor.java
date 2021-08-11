@@ -29,7 +29,6 @@ public class InventoryEditor extends JPanel {
     private int qty;
     private int removeId;
 
-
     private JFrame frame;
     private JTable table;
     private DefaultTableModel model;
@@ -49,7 +48,6 @@ public class InventoryEditor extends JPanel {
     private static final String JSON_STORE = "./data/inventory.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-
 
     // EFFECTS: Constructs an Inventory Editor gui.
     public InventoryEditor() {
