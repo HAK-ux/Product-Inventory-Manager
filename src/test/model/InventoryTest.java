@@ -75,7 +75,7 @@ public class InventoryTest {
     }
 
     @Test
-    void invalidIdExceptionTest() {
+    void invalidIdExceptionTestExpected() {
         try {
             emptyInventory.addProduct(product1);
             emptyInventory.addProduct(product1);
@@ -86,7 +86,17 @@ public class InventoryTest {
     }
 
     @Test
-    void invalidProductExceptionTest() throws InvalidIdException {
+    void invalidIdExceptionTestNotExpected() {
+        try {
+            emptyInventory.addProduct(product1);
+            // Good
+        } catch (InvalidIdException e) {
+            fail(); // Incorrect Exception
+        }
+    }
+
+    @Test
+    void invalidProductExceptionTestExpected() throws InvalidIdException {
         emptyInventory.addProduct(product2);
         emptyInventory.addProduct(product4);
 
@@ -95,6 +105,19 @@ public class InventoryTest {
             fail();
         } catch (InvalidProductException e) {
             // Good!
+        }
+
+    }
+
+    @Test
+    void invalidProductExceptionTestNotExpected() throws InvalidIdException {
+        emptyInventory.addProduct(product2);
+
+        try {
+            emptyInventory.getProductGivenId(2);
+            // Good
+        } catch (InvalidProductException e) {
+            fail(); //Incorrect Exception
         }
 
     }
