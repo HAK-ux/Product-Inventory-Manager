@@ -12,4 +12,9 @@
 - As a user, I want to be able to save my product inventory to file.
 - As a user, I want to be able to load my product inventory from file.
 
+### Phase 4: Task 2
+- Test and design a class in your model package that is robust.  You must have at least one method that throws a checked exception.  You must have one test for the case where the exception is expected and another where the exception is not expected:
+
+In the Inventory class, the addProduct(Product product) method throws an InvalidIdException. This exception among many other exceptions, is caught in the InventoryEditor class (gui) in the addProduct() method and also in the InventoryManager class (console based application) in the processAddProduct(Inventory inventory) method. This exception is tested in the InventoryTest class in the invalidIdExceptionTestExpected() method and in the invalidIdExceptionTestNotExpected() method.
+
 
