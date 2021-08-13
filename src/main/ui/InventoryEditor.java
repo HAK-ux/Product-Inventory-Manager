@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+// Inventory Editor (gui) application
 public class InventoryEditor extends JPanel {
 
     private static final int WIDTH = 1000;
