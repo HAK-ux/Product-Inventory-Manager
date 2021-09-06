@@ -1,16 +1,1 @@
-{"products": [
-    {
-        "quantity": 2,
-        "price": 3.5,
-        "name": "Eggs",
-        "id": 1,
-        "category": "Dairy"
-    },
-    {
-        "quantity": 5,
-        "price": 4,
-        "name": "Milk",
-        "id": 3,
-        "category": "Dairy"
-    }
-]}
+{"products": []}
